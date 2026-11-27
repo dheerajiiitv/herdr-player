@@ -1,6 +1,6 @@
 # Herdr Player
 
-A spinning album cover in your Herdr sidebar. Hover to reveal previous, play/pause and next. The colored arc marks elapsed time. A small ♪ occasionally rises from the playing disc and fades when the controls are tucked away.
+A spinning album cover in your Herdr sidebar. Hover to reveal previous, play/pause and next. The colored arc marks elapsed time. Four small notes (♪ ♫ ♩ ♬) occasionally float up in sequence while the controls are tucked away.
 
 ![Native Herdr player at rest and on hover, using sample artwork](preview.png)
 
