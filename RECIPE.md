@@ -1,6 +1,6 @@
 # Music Ring
 
-Put a single round record in the right side of the Herdr sidebar footer. The photo turns while music plays. About every seven seconds four 12 px notes (♪ ♫ ♩ ♬) rise from the cover. Stagger their entrances by 330 ms and vary their paths slightly. Each fades over 1.3 seconds. Hide them when paused, hovered or focused. Hovering reveals three transport controls without moving the cover.
+Put a single round record in the right side of the Herdr sidebar footer. The photo turns while music plays. About every seven seconds four 12 px notes (♪ ♫ ♩ ♬) rise from the cover. Stagger their entrances by 650 ms and vary their paths slightly. Each fades over 1.3 seconds. Hide them when paused, hovered or focused. Hovering reveals three transport controls without moving the cover.
 
 ![Music Ring at rest and on hover](preview.png)
 

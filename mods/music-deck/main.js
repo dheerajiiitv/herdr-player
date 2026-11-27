@@ -8,10 +8,10 @@ import { recordFace, turnAt, diameter } from "./ring.js";
 const SAVED = "music-deck.playlists";
 const MUSIC = "https://music.youtube.com/";
 const NOTES = [
-  { glyph: "♪", x: 40, y: 4, dx: 13, dy: -14 },
-  { glyph: "♫", x: 35, y: 1, dx: 6, dy: -12 },
-  { glyph: "♩", x: 42, y: 7, dx: 15, dy: -12 },
-  { glyph: "♬", x: 37, y: 2, dx: 10, dy: -13 },
+  { glyph: "♪", x: 38, y: 3, dx: 10, dy: -14 },
+  { glyph: "♫", x: 45, y: 8, dx: 14, dy: -13 },
+  { glyph: "♩", x: 34, y: 1, dx: 7, dy: -12 },
+  { glyph: "♬", x: 44, y: 6, dx: 12, dy: -14 },
 ];
 const icon = (name, size) => svg("mods/music-deck/" + name + ".svg").size(size).flex_none();
 const clock = seconds => {
@@ -97,14 +97,15 @@ export default class MusicDeck extends View {
     this.nextNoteAt = Date.now() + 6500;
     this.notes = [];
     // Stagger four entrances. GPUI interpolates every flight and fade.
+    const spacing = 650;
     NOTES.forEach((_note, index) => {
-      cx.timer.after(1 + index * 330, cx => {
+      cx.timer.after(1 + index * spacing, cx => {
         this.notes[index] = "start";
         cx.notify();
         cx.timer.after(100, cx => { this.notes[index] = "rise"; cx.notify(); });
       });
     });
-    cx.timer.after(2500, cx => { this.notes = []; cx.notify(); });
+    cx.timer.after((NOTES.length - 1) * spacing + 1500, cx => { this.notes = []; cx.notify(); });
   }
   noteViews(t) {
     return NOTES.flatMap(({ glyph, x, y, dx, dy }, index) => {
