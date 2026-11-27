@@ -70,6 +70,7 @@ export default class MusicDeck extends View {
         this.track = track;
         this.sampledAt = Date.now();
         this.failed = false;
+        if (track?.playing && !this.hovered && Date.now() >= (this.nextNoteAt || 0)) this.emitNote(cx);
         if (track && !this.cover && Date.now() >= (this.retryArtAt || 0)) {
           this.retryArtAt = Date.now() + 30000;
           try {
@@ -85,6 +86,14 @@ export default class MusicDeck extends View {
         cx.notify();
       }
     });
+  }
+  emitNote(cx) {
+    this.nextNoteAt = Date.now() + 6500;
+    this.note = "start";
+    cx.notify();
+    // Only the endpoints cross into JS. GPUI interpolates the flight and fade.
+    cx.timer.after(100, cx => { this.note = "rise"; cx.notify(); });
+    cx.timer.after(1550, cx => { this.note = null; cx.notify(); });
   }
   execute(cmd, args, cx, then) {
     cx.spawn(async cx => {
@@ -213,7 +222,16 @@ export default class MusicDeck extends View {
     const dial = div().id("dial").relative().size(diameter).flex_none()
       .tooltip(s?.duration ? clock(position) + " / " + clock(s.duration) + " · Drag rim to seek" : toggleHint)
       .on_mouse_down("left", (e, cx) => this.beginSeek(e, cx))
-      .child(face).child(center);
+      .child(face).child(center)
+      .when(Boolean(s?.playing && this.note && !active && (this.width ?? 122) >= 90), el => {
+        const rising = this.note === "rise";
+        return el.child(div().id("music-note").absolute()
+          .top(rising ? -10 : 4).left(rising ? 53 : 40).opacity(rising ? 0 : 0.85)
+          .transition("top", { duration: 1300, easing: "ease-out" })
+          .transition("left", { duration: 1300, easing: "ease-out" })
+          .transition("opacity", { delay: 350, duration: 950 })
+          .text_size(12).text_color(t.ansi6).child("♪"));
+      });
     return h_flex().id("music-row").size_full().items_center().justify_center().gap(4)
       .bg(t.chrome)
       .on_size_change((size, cx) => {

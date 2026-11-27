@@ -1,6 +1,6 @@
 # Music Ring
 
-Put a single round record in the right side of the Herdr sidebar footer. The photo turns while music plays. Hovering reveals three transport controls without moving the cover.
+Put a single round record in the right side of the Herdr sidebar footer. The photo turns while music plays. About every seven seconds a single 12 px note floats 13 px to the right and 14 px upward from the cover, fading over 1.3 seconds. Hide it when paused, hovered or focused. Hovering reveals three transport controls without moving the cover.
 
 ![Music Ring at rest and on hover](preview.png)
 
