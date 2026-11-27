@@ -1,0 +1,6 @@
+{
+  "title": "Music Ring",
+  "place": "none",
+  "focusable": true,
+  "overlay": { "kind": "dialog", "width": 392 }
+}
